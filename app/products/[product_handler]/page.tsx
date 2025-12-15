@@ -19,7 +19,12 @@ const Page = () => {
 
     return (
         <section className='h-screen w-screen bg-white dark:bg-black flex justify-center items-center text-black dark:text-white'>
-            {data ? JSON.stringify(data, null, 2) : 'Loading...'}
+            {data ? 
+            <div className=" flex h-screen gap-1 w-full pt-24 " >
+                <div className=" w-full h-full bg-amber-300 " ></div>
+                <div className=" w-full h-full bg-amber-900 " ></div>
+            </div>
+             : <span className=" font-extralight " >///LOADING</span>}
         </section>
     )
 }
