@@ -17,6 +17,8 @@ export default interface Product {
     };
   }>;
   images: Array<{
+    alt: string | null;
+    variant_ids: number[];
     src: string;
     width: number;
     height: number;

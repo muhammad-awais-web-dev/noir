@@ -1,5 +1,5 @@
 import { NextRequest } from "next/server";
-import Product from "../../api/productType";
+import Product from "../../types/productType";
 
 export async function GET(request: NextRequest) {
     try {

@@ -93,7 +93,7 @@ const ProductSection = (props: ProductSectionProps) => {
     }
 
     return (
-        <section className="secert-500-products-section gap-10 w-full flex flex-col justify-center items-center text-black dark:text-white p-10 relative bg-white dark:bg-black z-10">
+        <section className="secert-500-products-section gap-10 w-full flex flex-col justify-center items-center text-black dark:text-white p-10 relative  z-10">
             <h2 className=" w-full text-left text-5xl font-bold " >{props.heading} <span className=" text-sm hover:underline cursor-pointer  font-extralight pl-5 " > View All </span> </h2>
             <div className="products-grid grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 w-full">
                 {products.slice(0,4).map((product: any, index: number) => {

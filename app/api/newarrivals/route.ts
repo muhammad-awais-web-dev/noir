@@ -3,7 +3,7 @@ import Product from "../../types/productType";
 
 export async function GET(request: NextRequest) {
     try {
-        const res = await fetch('https://zerolifestyle.co/collections/azadi-sale/products.json',{
+        const res = await fetch('https://zerolifestyle.co/collections/newarrivals/products.json',{
             headers: {
                 'Content-Type': 'application/json'
             },
