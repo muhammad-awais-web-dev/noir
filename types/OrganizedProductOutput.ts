@@ -13,3 +13,5 @@ interface OrganizedProductOutput {
         gallery:string[];
     }>
 }
+
+export default OrganizedProductOutput;

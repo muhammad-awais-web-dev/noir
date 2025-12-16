@@ -11,7 +11,7 @@ export default function Home() {
     <div className=" bg-white dark:bg-black " >
     <ProductSection route={"secret500"} heading={"11.11 Special: Extra 500 Rs Off"} />
     <ProductSection route={"bestseller"} heading={"Best Seller"} />
-    <ProductSection route={"newarrivals"} heading={"New Arrivals"} />
+    {/* <ProductSection route={"New"} heading={"Best Seller"} /> */}
     </div>
     </>
   );

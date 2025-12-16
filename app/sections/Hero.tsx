@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef, useState } from "react";
-import heroVideosData from "./HeroVideosData";
+import heroVideosData from "@/data/HeroVideosData";
 import { useGSAP } from "@gsap/react";
 import Link from "next/link";
 import gsap from "gsap/all";

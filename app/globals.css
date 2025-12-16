@@ -132,3 +132,16 @@
     @apply bg-background text-foreground;
   }
 }
+
+::-webkit-scrollbar{
+  background-color: transparent;
+  padding: 20;
+  width: 10px;
+
+}
+::-webkit-scrollbar-thumb{
+  background-color: black;
+  border-radius: 10px;
+  border: 2px solid white;
+  background-clip: content-box;
+}
