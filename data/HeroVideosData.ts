@@ -14,7 +14,7 @@ const heroVideosData: VideoData[] = [
     description: "Immerse yourself in a new sensation of Spatial Audio Beats with Fawad Khan’s Quantum Earbuds. Equipped with ANC Technology, Quad Mic ENC, and Instant Pairing, the Quantum Earbuds offer a 70-hour battery life. Designed with a two-toned gradient Flybird Design, these earbuds enhance every decibel, delivering crystal clear audio quality for an unmatched listening experience.",
     buttons: [{
         text: "Shop Now",
-        link: "/"
+        link: "/products/quantum-earbuds"
     }]
     },
     {
@@ -24,7 +24,7 @@ const heroVideosData: VideoData[] = [
     description: "Pakistan’s First Gaming Earbuds, making it the ultimate wireless companion for every gamer. Powered with 40M/S Hyper Low Latency, RGB Case & Buds along with 50 Hour Standby Playback time, the Arcade Series is your gaming studio in your pocket.",
     buttons: [{
         text: "Shop Now",
-        link: "/"
+        link: "/products/arcade-800"
     }]
     },{
     id: 3,

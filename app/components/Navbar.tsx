@@ -82,7 +82,10 @@ const Navbar = () => {
   return (
     <nav className="w-full py-6 text-white px-8 flex justify-between items-center bg-white-50 dark:bg-black/50 backdrop-blur-3xl fixed top-0 left-0 z-100">
       <div className="w-fit h-fit relative  justify-center leading-tight gap-5 items-center font-thin text-5xl flex ">
+        <Link href="/" >
         <img src="/zerologo.svg" className=" h-12 " />
+        </Link>
+        
       </div>
       <div className=" menu-container  absolute h-fit top-0 right-0  flex flex-col items-end">
         <div
