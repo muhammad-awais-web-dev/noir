@@ -1,5 +1,6 @@
 import { NextRequest } from "next/server";
 import Product from "../../../../types/productType";
+import OrganizedProductOutput from "@/types/OrganizedProductOutput";
 
 export async function GET(request: NextRequest, { params }: { params: Promise<{ product_handler: string }> }) {
     try {
