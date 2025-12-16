@@ -9,9 +9,11 @@ import { UnOrganized404ProductPlaceholder } from "@/data/Product404";
 interface ProductSectionProps {
     route?: String;
     heading: String;
+    limit?: number;
 }
 
 const ProductSection = (props: ProductSectionProps) => {
+    const limit = props.limit || -1;
     const [products, setProducts] = useState<any[]>([])
     const [loading, setLoading] = useState(true)
     const [error, setError] = useState<string | null>(null)
@@ -29,6 +31,9 @@ const ProductSection = (props: ProductSectionProps) => {
             console.log('API Response:', data);
 
             setProducts(data.products || data || []);
+            if (limit > 0) {
+                setProducts((data.products || data || []).slice(0, limit));
+            }
             setLoading(false);
         } catch (error) {
             console.error('Error fetching products:', error);
@@ -80,7 +85,7 @@ const ProductSection = (props: ProductSectionProps) => {
         <section className="secert-500-products-section gap-10 w-full flex flex-col justify-center items-center text-black dark:text-white p-10 relative  z-10">
             <h2 className=" w-full text-left text-5xl font-bold " >{props.heading} <span className=" text-sm hover:underline cursor-pointer  font-extralight pl-5 " > View All </span> </h2>
             <div className="products-grid grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 w-full">
-                {products.slice(0,4).map((product: any, index: number) => {
+                {products.map((product: any, index: number) => {
                     return <ProductCard key={index} product={product} index={index} />
                 })}
             </div>

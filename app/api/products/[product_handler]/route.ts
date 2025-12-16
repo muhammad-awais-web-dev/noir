@@ -2,6 +2,9 @@ import { NextRequest } from "next/server";
 import Product from "../../../../types/productType";
 import OrganizedProductOutput from "@/types/OrganizedProductOutput";
 
+// Enable caching for this route
+export const revalidate = 3600; // Revalidate every hour
+
 export async function GET(request: NextRequest, { params }: { params: Promise<{ product_handler: string }> }) {
     try {
         const { product_handler } = await params;
@@ -9,6 +12,7 @@ export async function GET(request: NextRequest, { params }: { params: Promise<{ 
             headers: {
                 'Content-Type': 'application/json'
             },
+            cache: 'force-cache',
             next: { revalidate: 3600 }
         });
         if (!res.ok) {
@@ -58,7 +62,8 @@ export async function GET(request: NextRequest, { params }: { params: Promise<{ 
         return new Response(JSON.stringify(OrganizedOutput), {
             status: 200,
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Cache-Control': 'public, s-maxage=3600, stale-while-revalidate=7200'
             }
         });
     } catch (error) {

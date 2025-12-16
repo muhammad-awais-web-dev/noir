@@ -9,8 +9,8 @@ export default function Home() {
       <img src="/images/banner.png" className=" w-full h-auto object-cover " />
     </div>
     <div className=" bg-white dark:bg-black " >
-    <ProductSection route={"secret500"} heading={"11.11 Special: Extra 500 Rs Off"} />
-    <ProductSection route={"bestseller"} heading={"Best Seller"} />
+    <ProductSection limit={4} route={"secret500"} heading={"11.11 Special: Extra 500 Rs Off"} />
+    <ProductSection limit={4} route={"bestseller"} heading={"Best Seller"} />
     {/* <ProductSection route={"New"} heading={"Best Seller"} /> */}
     </div>
     </>
