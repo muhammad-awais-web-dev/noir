@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Hero from "./sections/Hero";
 import ProductSection from "./sections/ProductSections"
 
@@ -6,12 +7,11 @@ export default function Home() {
     <>
     <Hero />
     <div className=" w-full bg-white p-10 dark:bg-black h-fit relative " >{/*need to add link later*/}
-      <img src="/images/banner.png" className=" w-full h-auto object-cover " />
+      <Image width={2048} height={651} alt="Banner" src="/images/banner.png" className=" w-full h-auto object-cover " />
     </div>
     <div className=" bg-white dark:bg-black " >
     <ProductSection limit={4} route={"secret500"} heading={"11.11 Special: Extra 500 Rs Off"} />
     <ProductSection limit={4} route={"bestseller"} heading={"Best Seller"} />
-    {/* <ProductSection route={"New"} heading={"Best Seller"} /> */}
     </div>
     </>
   );
