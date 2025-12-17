@@ -33,7 +33,7 @@ const heroVideosData: VideoData[] = [
     description: "Introducing Z-Buds: the groundbreaking fashion tech accessory that redefines your audio experience.",
     buttons: [{
         text: "View All Zero Earbuds",
-        link: "/"
+        link: "/collections/earbuds-zbuds"
     }]
     },
 ]

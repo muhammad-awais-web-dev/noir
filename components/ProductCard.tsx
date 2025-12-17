@@ -2,6 +2,7 @@ import React from "react";
 import productType from "../types/productType";
 import Link from "next/link";
 import { useState } from "react";
+import Image from "next/image";
 
 const colorMap: { [key: string]: string } = {
   black: "#000000",
@@ -60,10 +61,14 @@ const ProductCard = (props: { product: productType; index: number }) => {
         >
           <div className="bg-gray-100 dark:bg-zinc-800 h-80 flex items-center justify-center">
             {displayImage ? (
-              <img
+              <Image
                 src={displayImage}
                 alt={product.title}
+                width={0}
+                height={0}
+                sizes="100vw"
                 className="w-full h-full object-contain"
+                unoptimized
               />
             ) : (
               <div className="text-gray-400">No image</div>

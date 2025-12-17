@@ -4,6 +4,7 @@ import { OrganizedCollectionData } from "@/types/OrganizedCollectionData";
 import { useEffect, useRef, useState } from "react";
 import ProductCard from "@/components/ProductCard";
 import Link from "next/link";
+import Image from "next/image";
 
 const page = () => {
   const params = useParams();
@@ -27,16 +28,20 @@ const page = () => {
           console.error(error);
         });
     }
-  }, [collection_handle]);
+  }, [collection_handle, page]);
   return (
     <section className=" bg-white dark:bg-black pt-30 min-h-screen w-full flex flex-col  text-black dark:text-white ">
       {data ? (
         <>
-          <img
+          <Image
             src={data.image.src}
-            alt={data.image.alt}
+            alt={data.image.alt || data.title}
             key={data.id}
-            className=" w-full "
+            width={0}
+            height={0}
+            sizes="100vw"
+            style={{width: "100%", height:"auto"}}
+            unoptimized
           />
           <h1 className=" text-5xl font-bold text-center my-5 ">
             {data.title}
@@ -50,7 +55,7 @@ const page = () => {
             <Link href={page && parseInt(page) > 1 ? `/collections/${collection_handle}?page=${parseInt(page)-1}` : '#'} className={` ${page && parseInt(page) > 1 ? 'text-black dark:text-white' : 'text-gray-500 cursor-not-allowed' }  border-2 border-black dark:border-white px-5 py-2 `} >
                 Previous
             </Link>
-            <Link href={page && parseInt(page)*30 <data.products_count ? `/collections/${collection_handle}?page=${parseInt(page)+1}` : "#" } className={` ${page && parseInt(page)*30 <data.products_count ? 'text-black dark:text-white' : 'text-gray-500 cursor-not-allowed' }  border-2 border-black dark:border-white px-5 py-2 `} >                Next
+            <Link href={page && data.products.length === 20 ? `/collections/${collection_handle}?page=${parseInt(page)+1}` : "#" } className={` ${page && parseInt(page)*30 <data.products_count ? 'text-black dark:text-white' : 'text-gray-500 cursor-not-allowed' }  border-2 border-black dark:border-white px-5 py-2 `} >                Next
             </Link>
           </div>
         </>

@@ -10,7 +10,7 @@ export async function GET(request: NextRequest, { params }: { params: Promise<{ 
     const page = searchParams.get('page') || '1';
     try {
         const {collection_handler} = await params;
-        const res = await fetch(`https://zerolifestyle.co/collections/${collection_handler}/products.json${page === '1' ? '' : `?page=${page}`}`,{
+        const res = await fetch(`https://zerolifestyle.co/collections/${collection_handler}/products.json?limit=20${page === '1' ? '' : `&page=${page}`}`,{
             headers: {
                 'Content-Type': 'application/json'
             },
@@ -18,7 +18,12 @@ export async function GET(request: NextRequest, { params }: { params: Promise<{ 
             next: { revalidate: 3600 }
         });
         if (!res.ok) {
-            return new Response(JSON.stringify({ error: 'Failed to fetch products' }), { status: 500 });
+            console.error(`Failed to fetch products for ${collection_handler}, status: ${res.status}`);
+            return new Response(JSON.stringify({ 
+                error: 'Failed to fetch products', 
+                collection: collection_handler,
+                status: res.status 
+            }), { status: res.status });
         }
         const productsResponse = await res.json();
         const data: Product[] = productsResponse.products || [];
@@ -31,10 +36,22 @@ export async function GET(request: NextRequest, { params }: { params: Promise<{ 
             next: {revalidate: 3600}
         });
         if (!res2.ok){
-            return new Response(JSON.stringify({ error: 'Failed to fetch collections' }), { status: 500 });
+            console.error(`Failed to fetch collection metadata for ${collection_handler}, status: ${res2.status}`);
+            return new Response(JSON.stringify({ 
+                error: 'Collection not found', 
+                collection: collection_handler 
+            }), { status: 404 });
         }
         const collectionsResponse = await res2.json();
         const collectionData: UnOrganizedCollectionData = collectionsResponse.collection || null;
+        
+        if (!collectionData) {
+            return new Response(JSON.stringify({ 
+                error: 'Collection data is null', 
+                collection: collection_handler 
+            }), { status: 404 });
+        }
+        
         const OrganizedOutput : OrganizedCollectionData = {
             id: collectionData.id,
             title: collectionData.title,
@@ -54,6 +71,10 @@ export async function GET(request: NextRequest, { params }: { params: Promise<{ 
             }
         });
     } catch (error) {
-        return new Response(JSON.stringify({ error: 'An error occurred' }), { status: 500 });
+        console.error('Error in collections API:', error);
+        return new Response(JSON.stringify({ 
+            error: 'An error occurred',
+            details: error instanceof Error ? error.message : 'Unknown error'
+        }), { status: 500 });
     }
 }
