@@ -22,9 +22,9 @@ const Navbar = () => {
 
   const menuitems = [
     { name: "Home", link: "/" },
-    { name: "Zero Earbuds", link: "/zbuds" },
-    { name: "Headphones", link: "/headphones" },
-    { name: "Smartwatches", link: "/smartwatches" },
+    { name: "Zero Earbuds", link: "/collections/earbuds-zbuds" },
+    { name: "Headphones", link: "/collections/headphones" },
+    { name: "Smartwatches", link: "/collections/smart-watches" },
     { name: "Support", link: "/support" },
   ];
   useEffect(() => {
@@ -158,7 +158,7 @@ const Navbar = () => {
 
   return (
     <>
-      <nav className="w-full py-6 text-white px-8 flex justify-between items-center bg-white-50 dark:bg-black/50 backdrop-blur-3xl fixed top-0 left-0 z-100">
+      <nav className="w-full py-6 text-white px-8 flex justify-between items-center bg-white-50 bg-black/50 fixed top-0 left-0 z-100">
         <div className="w-fit h-fit relative  justify-center leading-tight gap-5 items-center font-thin text-5xl flex ">
           <Link href="/">
             <img src="/zerologo.svg" className=" h-12 " />

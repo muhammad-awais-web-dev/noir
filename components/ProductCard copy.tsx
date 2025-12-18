@@ -54,11 +54,9 @@ const ProductCard = (props: { product: productType; index: number }) => {
   const { cartItems, setCartItems } = useCart();
 
   return (
-    <MagicCard
-      gradientTo="#890000"
-      gradientFrom="#d8a74b"
+    <div
       key={product.id || index}
-      className="product-card bg-gray-50 p-3 overflow-hidden dark:bg-zinc-900 rounded-2xl shadow-lg"
+      className="product-card bg-gray-50 dark:bg-zinc-900 rounded-2xl overflow-hidden shadow-lg"
     >
       {/* Product Badge */}
       <div className="relative">
@@ -68,7 +66,7 @@ const ProductCard = (props: { product: productType; index: number }) => {
           href={`/products/${product.handle}`}
           className="no-underline"
         >
-          <div className="bg-black/10 dark:bg-white/10 backdrop-blur-md rounded-2xl p-5 h-80 flex items-center justify-center">
+          <div className="bg-gray-100 dark:bg-zinc-800 p-5 h-80 flex items-center justify-center">
             {displayImage ? (
               <Image
                 src={displayImage}
@@ -243,7 +241,7 @@ const ProductCard = (props: { product: productType; index: number }) => {
           </div>
         )}
       </div>
-    </MagicCard>
+    </div>
   );
 };
 
