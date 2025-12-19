@@ -20,12 +20,13 @@ export async function GET(request: NextRequest, { params }: { params: Promise<{ 
         }
         const data:any = await res.json();
         const productData:Product = (data.product);
-        let variantsData: {id:number;name:string;price:string;mainImage:string;gallery:string[]}[] = []
+        let variantsData: {id:number;name:string;price:string;compare_at_price?:string;mainImage:string;gallery:string[]}[] = []
         productData.variants.map(variant => {
             variantsData.push({
                 id: variant.id,
                 name: variant.title,
                 price: variant.price,
+                compare_at_price: variant.compare_at_price,
                 mainImage: "",
                 gallery: [] 
             })

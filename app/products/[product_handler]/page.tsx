@@ -5,8 +5,12 @@ import { Organized404ProductPlaceholder } from "@/data/Product404";
 import OrganizedProductOutput from "@/types/OrganizedProductOutput";
 import { useParams } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
+import { useCart } from "@/provider/CartProvider";
+import { CartItem } from "@/types/Cart";
+import { DivideCircleIcon } from "lucide-react";
 
 const Page = () => {
+  const { cartItems, addProductToCart, removeItemFromCart } = useCart();
   const params = useParams();
   const product = params.product_handler as string;
   const [data, setData] = useState<OrganizedProductOutput>(
@@ -14,6 +18,20 @@ const Page = () => {
   );
   const [SelectedVarient, setSelectedVarient] = useState(0);
   const bodyHTMLRef = useRef<HTMLDivElement>(null);
+  const selectedVariantData = data.variants[SelectedVarient];
+  const variantCartItem: CartItem = {
+    id: selectedVariantData.id,
+    name: data.title,
+    variation: selectedVariantData.name,
+    handle: data.handle,
+    image: {
+      src: selectedVariantData.mainImage,
+      alt: data.title,
+    },
+    quantity: 1,
+    price: parseInt(selectedVariantData.price),
+    compare_at_price: parseInt(data.variants[0].price),
+  };
 
   useEffect(() => {
     if (product) {
@@ -44,7 +62,9 @@ const Page = () => {
         <div className="lg:w-2/5 w-full  lg:overflow-y-auto overflow-x-auto h-fit lg:h-full shrink-0 border-2 border-black dark:border-white">
           <div className="flex flex-col lg:w-auto">
             <div className="relative w-full h-full lg:h-fit p-5 flex items-center justify-center border-2 transition-all duration-300 cursor-pointer border-black dark:border-white">
-              <span className=" absolute top-0 left-0 text-sm p-5 ">IMG [1]</span>
+              <span className=" absolute top-0 left-0 text-sm p-5 ">
+                IMG [1]
+              </span>
               <img
                 src={data.variants[SelectedVarient].mainImage}
                 className=" max-w-150 h-80 object-contain lg:h-9/12 w-9/12 "
@@ -53,7 +73,10 @@ const Page = () => {
             </div>
             <div className=" flex h-50 overflow-x-auto  lg:h-fit lg:grid lg:grid-cols-2">
               {data.variants[SelectedVarient].gallery.map((img, idx) => (
-                <div key={idx} className="relative min-w-fit lg:w-full aspect-square flex items-center justify-center border-2 transition-all duration-300 cursor-pointer border-black dark:border-white overflow-hidden">
+                <div
+                  key={idx}
+                  className="relative min-w-fit lg:w-full aspect-square flex items-center justify-center border-2 transition-all duration-300 cursor-pointer border-black dark:border-white overflow-hidden"
+                >
                   <span className="absolute top-0 left-0 text-sm p-5 mix-blend-exclusion">
                     IMG [{idx + 2}]
                   </span>
@@ -70,15 +93,18 @@ const Page = () => {
         <div className="lg:w-3/5 w-full lg:overflow-y-auto h-fit lg:h-full flex-1 border-2 border-black dark:border-white">
           <div className="p-3 h-fit border-2 border-black dark:border-white">
             <h1 className=" text-7xl font-bold ">{data.title} </h1>
+            <p className=" text-3xl font-semibold my-5 line-through ">
+              Rs.{data.variants[SelectedVarient].compare_at_price}{" "}
+            </p>
             <p className=" text-3xl font-semibold my-5 ">
-              ${data.variants[SelectedVarient].price}{" "}
+              Rs.{data.variants[SelectedVarient].price}{" "}
             </p>
             <div className="w-fit p-3 gap-3 flex flex-col">
               <div className=" inline-flex flex-wrap full gap-3 ">
                 {data.variants.map((variant, idx) => {
                   return (
                     <div
-                        key={idx}
+                      key={idx}
                       onClick={() => setSelectedVarient(idx)}
                       className={`group border-2 px-2 py-4 ${
                         SelectedVarient === idx
@@ -91,22 +117,62 @@ const Page = () => {
                           SelectedVarient === idx ? "w-full" : "w-0"
                         } absolute top-0 right-0  bg-black dark:bg-white group-hover:w-full transition-all duration-300 `}
                       ></div>
-                      <span className="relative text-nowrap">{variant.name}</span>
+                      <span className="relative text-nowrap">
+                        {variant.name}
+                      </span>
                     </div>
                   );
                 })}
               </div>
-              <div className="w-full h-1 bg-gray-500 my-5" ></div>
+              <div className="w-full h-1 bg-gray-500 my-5"></div>
               {data.product_type === "Null" ? null : (
                 <>
-                <div className="group border-2 px-2 py-4 border-black dark:border-white font-bold text-black dark:text-white hover:text-white dark:hover:text-black transition-colors duration-300 cursor-pointer relative">
-                  <div className=" h-full w-0 absolute top-0 right-0  bg-black dark:bg-white group-hover:w-full transition-all duration-300 "></div>
-                  <span className="relative">Buy Now</span>
-                </div>
-                <a href={`https://zerolifestyle.co/products/${data.handle}`} className="group border-2 px-2 py-4 border-black dark:border-white font-bold text-black dark:text-white hover:text-white dark:hover:text-black transition-colors duration-300 cursor-pointer relative">
-                  <div className=" h-full w-0 absolute top-0 right-0  bg-black dark:bg-white group-hover:w-full transition-all duration-300 "></div>
-                  <span className="relative">Visit On zerolifestyle.co</span>
-                </a>
+                  {cartItems.findIndex(
+                    (item) =>
+                      item.handle === data.handle &&
+                      item.variation === selectedVariantData.name
+                  ) === -1 ? (
+                    <div
+                      onClick={() => addProductToCart(variantCartItem, 1)}
+                      className="group border-2 px-2 py-4 border-black dark:border-white font-bold text-black dark:text-white hover:text-white dark:hover:text-black transition-colors duration-300 cursor-pointer relative"
+                    >
+                      <div className=" h-full w-0 absolute top-0 right-0  bg-black dark:bg-white group-hover:w-full transition-all duration-300 "></div>
+                      <span className="relative">Add To Cart</span>
+                    </div>
+                  ) : (
+                    <div className="grid grid-cols-7 gap-3">
+                      <div
+                        onClick={() => removeItemFromCart(variantCartItem, 1)}
+                        className="col-span-3 group text-center border-2 px-2 py-4 border-black dark:border-white font-bold text-black dark:text-white hover:text-white dark:hover:text-black transition-colors duration-300 cursor-pointer relative"
+                      >
+                        <div className=" h-full w-0 absolute top-0 right-0  bg-black dark:bg-white group-hover:w-full transition-all duration-300 "></div>
+                        <span className="relative">-</span>
+                      </div>
+                      <div className="group text-center px-2 py-4 border-black dark:border-white font-bold text-black dark:text-white transition-colors duration-300 cursor-pointer relative">
+                        <span className="relative">
+                          {cartItems.find(
+                            (item) =>
+                              item.handle === data.handle &&
+                              item.variation === selectedVariantData.name
+                          )?.quantity || 0}{" "}
+                        </span>
+                      </div>
+                      <div
+                        onClick={() => addProductToCart(variantCartItem, 1)}
+                        className="col-span-3 group text-center border-2 px-2 py-4 border-black dark:border-white font-bold text-black dark:text-white hover:text-white dark:hover:text-black transition-colors duration-300 cursor-pointer relative"
+                      >
+                        <div className=" h-full w-0 absolute top-0 right-0  bg-black dark:bg-white group-hover:w-full transition-all duration-300 "></div>
+                        <span className="relative">+</span>
+                      </div>
+                    </div>
+                  )}
+                  <a
+                    href={`https://zerolifestyle.co/products/${data.handle}`}
+                    className="group border-2 px-2 py-4 border-black dark:border-white font-bold text-black dark:text-white hover:text-white dark:hover:text-black transition-colors duration-300 cursor-pointer relative"
+                  >
+                    <div className=" h-full w-0 absolute top-0 right-0  bg-black dark:bg-white group-hover:w-full transition-all duration-300 "></div>
+                    <span className="relative">Visit On zerolifestyle.co</span>
+                  </a>
                 </>
               )}
             </div>

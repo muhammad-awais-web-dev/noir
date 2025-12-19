@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import Navbar from "./components/Navbar";
+import Navbar from "@/components/Navbar";
 import { CartProvider } from "@/provider/CartProvider";
 
 export const metadata: Metadata = {
-  title: "Zeor Lifestyle - Premium Quality Products",
+  title: "Zero Lifestyle - Premium Quality Products",
   description: "A concept website for Zero Lifestyle products, Created by MuhammadAwaisWebDev",
 };
 
