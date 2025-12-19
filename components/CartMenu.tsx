@@ -20,7 +20,7 @@ const CartMenu = (props: {
 
   useEffect(() => {
     if (cartItems.length < 1) setTimeout(() => setCartOpen(false), 500);
-  }, [cartItems,cartOpen]);
+  }, [cartItems, cartOpen]);
 
   useGSAP(() => {
     //MenuRef

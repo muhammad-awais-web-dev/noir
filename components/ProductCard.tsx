@@ -179,67 +179,103 @@ const ProductCard = (props: { product: productType; index: number }) => {
             >
               Buy Now
             </Link>
-            { cartItems.findIndex(item=>item.handle===product.handle && item.variation===selectedVariant.title) !== -1 ? (
-
-            <div className=" flex  justify-center items-center" >
-              <button type="button"
-              onClick={(e)=>{
-                e.preventDefault();
-                e.stopPropagation();
-                const updatedCartItems = cartItems;
-                updatedCartItems.findIndex(item=>item.handle===product.handle && item.variation===selectedVariant.title);
-                updatedCartItems[ updatedCartItems.findIndex(item=>item.handle===product.handle && item.variation===selectedVariant.title)].quantity +=1;
-                setCartItems([...updatedCartItems]);
-              }}
-              className="cursor-pointer Cart aspect-square w-fit flex justify-center items-center border-black dark:border-white border-2 dark:bg-white bg-black hover:bg-white dark:hover:bg-black text-white dark:text-black hover:text-black dark:hover:text-white mt-2 font-bold py-2 px-4 rounded-full transition-colors duration-300 text-center " >
-                <ChevronUp />
-              </button>
-              <span className="aspect-square w-fit flex justify-center items-center text-black dark:text-white mt-2 font-bold py-2 px-4 rounded-full transition-colors duration-300 text-center " >{cartItems[ cartItems.findIndex(item=>item.handle===product.handle && item.variation===selectedVariant.title)].quantity} </span>
-              <button type="button" 
-              onClick={(e)=>{
-                e.preventDefault();
-                e.stopPropagation();
-                const updatedCartItems = cartItems;
-                const itemIndex = updatedCartItems.findIndex(item=>item.handle===product.handle && item.variation===selectedVariant.title);
-                if(itemIndex!==-1){
-                  if(updatedCartItems[itemIndex].quantity > 1){
-                    updatedCartItems[itemIndex].quantity -=1;
+            {cartItems.findIndex(
+              (item) =>
+                item.handle === product.handle &&
+                item.variation === selectedVariant.title
+            ) !== -1 ? (
+              <div className=" flex  justify-center items-center">
+                <button
+                  type="button"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    const updatedCartItems = cartItems;
+                    updatedCartItems.findIndex(
+                      (item) =>
+                        item.handle === product.handle &&
+                        item.variation === selectedVariant.title
+                    );
+                    updatedCartItems[
+                      updatedCartItems.findIndex(
+                        (item) =>
+                          item.handle === product.handle &&
+                          item.variation === selectedVariant.title
+                      )
+                    ].quantity += 1;
                     setCartItems([...updatedCartItems]);
-                  } else {
-                    // Remove item if quantity would be 0
-                    updatedCartItems.splice(itemIndex, 1);
-                    setCartItems([...updatedCartItems]);
-                  }
+                  }}
+                  className="cursor-pointer Cart aspect-square w-fit flex justify-center items-center border-black dark:border-white border-2 dark:bg-white bg-black hover:bg-white dark:hover:bg-black text-white dark:text-black hover:text-black dark:hover:text-white mt-2 font-bold py-2 px-4 rounded-full transition-colors duration-300 text-center "
+                >
+                  <ChevronUp />
+                </button>
+                <span className="aspect-square w-fit flex justify-center items-center text-black dark:text-white mt-2 font-bold py-2 px-4 rounded-full transition-colors duration-300 text-center ">
+                  {
+                    cartItems[
+                      cartItems.findIndex(
+                        (item) =>
+                          item.handle === product.handle &&
+                          item.variation === selectedVariant.title
+                      )
+                    ].quantity
+                  }{" "}
+                </span>
+                <button
+                  type="button"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    const updatedCartItems = cartItems;
+                    const itemIndex = updatedCartItems.findIndex(
+                      (item) =>
+                        item.handle === product.handle &&
+                        item.variation === selectedVariant.title
+                    );
+                    if (itemIndex !== -1) {
+                      if (updatedCartItems[itemIndex].quantity > 1) {
+                        updatedCartItems[itemIndex].quantity -= 1;
+                        setCartItems([...updatedCartItems]);
+                      } else {
+                        // Remove item if quantity would be 0
+                        updatedCartItems.splice(itemIndex, 1);
+                        setCartItems([...updatedCartItems]);
+                      }
+                    }
+                  }}
+                  className="cursor-pointer Cart aspect-square w-fit flex justify-center items-center border-black dark:border-white border-2 dark:bg-white bg-black hover:bg-white dark:hover:bg-black text-white dark:text-black hover:text-black dark:hover:text-white mt-2 font-bold py-2 px-4 rounded-full transition-colors duration-300 text-center "
+                >
+                  <ChevronDown />
+                </button>
+              </div>
+            ) : (
+              <div
+                onClick={() =>
+                  setCartItems((prev) => {
+                    return [
+                      ...prev,
+                      {
+                        id: prev[prev.length - 1]?.id + 1 || 1,
+                        name: product.title,
+                        variation: selectedVariant.title,
+                        handle: product.handle,
+                        image: {
+                          src: displayImage || "",
+                          alt: product.title,
+                        },
+                        quantity: 1,
+                        price: parseFloat(selectedVariant.price),
+                        compare_at_price: selectedVariant.compare_at_price
+                          ? parseFloat(selectedVariant.compare_at_price)
+                          : undefined,
+                      },
+                    ];
+                  })
                 }
-              }}
-              className="cursor-pointer Cart aspect-square w-fit flex justify-center items-center border-black dark:border-white border-2 dark:bg-white bg-black hover:bg-white dark:hover:bg-black text-white dark:text-black hover:text-black dark:hover:text-white mt-2 font-bold py-2 px-4 rounded-full transition-colors duration-300 text-center " >
-                <ChevronDown />
-              </button>
-            </div> 
-            ): 
-            <div
-            onClick={()=>
-              setCartItems((prev)=>{
-                  return [...prev,{
-                    id: prev[prev.length - 1]?.id + 1 || 1,
-                    name: product.title,
-                    variation: selectedVariant.title,
-                    handle: product.handle,
-                    image: {
-                      src: displayImage || "",
-                      alt: product.title,
-                    },
-                    quantity: 1,
-                    price: parseFloat(selectedVariant.price),
-                    compare_at_price: selectedVariant.compare_at_price ? parseFloat(selectedVariant.compare_at_price) : undefined,
-                  }]
-              })
-            }
-            className="cursor-pointer Cart aspect-square w-fit flex justify-center items-center border-black dark:border-white border-2 dark:bg-white bg-black hover:bg-white dark:hover:bg-black text-white dark:text-black hover:text-black dark:hover:text-white mt-2 font-bold py-2 px-4 rounded-full transition-colors duration-300 text-center " >
-              <FaCartPlus />
-            </div>
-            }
-
+                className="cursor-pointer Cart aspect-square w-fit flex justify-center items-center border-black dark:border-white border-2 dark:bg-white bg-black hover:bg-white dark:hover:bg-black text-white dark:text-black hover:text-black dark:hover:text-white mt-2 font-bold py-2 px-4 rounded-full transition-colors duration-300 text-center "
+              >
+                <FaCartPlus />
+              </div>
+            )}
           </div>
         )}
       </div>
