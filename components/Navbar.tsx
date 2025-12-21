@@ -104,8 +104,7 @@ const Navbar = () => {
           </div>
         </Link>
         <div className=" w-full h-full bg-black border-b-2 dark:bg-black/55 backdrop-blur-lg flex justify-center items-center text-white ">
-          {menuOpen ? "Menu Open" : "Menu Closed"} /{" "}
-          {cartOpen ? "Cart Open" : "Cart Closed"}
+
         </div>
         <div className=" w-32 bg-black text-white dark:bg-black/55 backdrop-blur-lg overflow-hidden h-full flex ">
           <div

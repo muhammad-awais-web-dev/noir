@@ -3,6 +3,7 @@
 import NavMenuItems from "@/data/NavMenuItems";
 import { useGSAP } from "@gsap/react";
 import gsap, { Observer } from "gsap/all";
+import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 
@@ -118,10 +119,10 @@ const NavMenu = (props: {
               key={index}
               className="menuItem origin-top w-full flex justify-center items-center h-20 border-y-2 -mt-0.5 relative overflow-hidden"
             >
-              <span className=" text-[4vw] font-black text-white ">
+              <span className=" text-[4vw] font-black  dark:text-white ">
                 {item.text}
               </span>
-              <div className=" menuItemHilight flex w-full h-full bg-white absolute top-full">
+              <div className=" menuItemHilight flex w-full h-full bg-black dark:bg-white absolute top-full">
                 {[0, 1].map((index) => {
                   return (
                     // <Link key={index} className="w-full h-full"  href={item.link} >
@@ -129,11 +130,15 @@ const NavMenu = (props: {
                       key={index}
                       className=" menuHilightContent h-full flex justify-center items-center min-w-full"
                     >
-                      <div className=" aspect-square bg-black h-full mx-10 border "></div>
-                      <span className=" text-[4vw] font-black text-black ">
+                      <div className=" aspect-square  h-full mx-10 p-2 ">
+                        <Image src={item.image1} alt={item.text} width={100} height={100} className={` w-full h-full object-contain ${ item.text==="Home" || item.text === "Support" ? "bg-black rounded-full":"" } `} />
+                      </div>
+                      <span className=" text-[4vw] font-black text-white dark:text-black ">
                         {item.text}
                       </span>
-                      <div className=" aspect-square bg-black h-full mx-10 border "></div>
+                      <div className=" aspect-square  h-full mx-10 p-2 ">
+                        <Image src={item.image2} alt={item.text} width={100} height={100} className={` w-full h-full object-contain ${ item.text==="Home" || item.text === "Support" ? "bg-black rounded-full":"" } `} />
+                      </div>
                     </div>
                     // </Link>
                   );

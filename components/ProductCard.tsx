@@ -1,3 +1,5 @@
+'use client'
+
 import React from "react";
 import productType from "../types/productType";
 import Link from "next/link";
