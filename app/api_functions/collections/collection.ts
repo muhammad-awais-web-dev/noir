@@ -49,7 +49,7 @@ export async function getCollection(collection_handler: string, page: string = '
             description: collectionData.description,
             published_at: collectionData.published_at,
             updated_at: collectionData.updated_at,
-            image: collectionData.image ?? {id:0,created_at:"never",src:"/images/Banner.png",alt:"Placeholder"} ,
+            image: collectionData.image ?? {id:0,created_at:"never",src:"/images/defaultbanner.png",alt:"Placeholder"} ,
             products_count: collectionData.products_count,
             products: data
         }

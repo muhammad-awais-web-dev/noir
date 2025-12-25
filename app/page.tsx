@@ -64,7 +64,7 @@ export default function Home() {
           width={2048}
           height={651}
           alt="Banner"
-          src="/images/banner.png"
+          src="/images/defaultbanner.png"
           loading="lazy"
           className=" w-full h-auto object-cover "
         />
