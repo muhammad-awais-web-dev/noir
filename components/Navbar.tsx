@@ -9,6 +9,7 @@ import gsap from "gsap/all";
 import NavMenu from "./NavMenu";
 import CartMenu from "./CartMenu";
 import NavProgress from "./NavProgress";
+import { usePathname } from "next/navigation";
 
 const Navbar = () => {
   const menuRef = useRef<HTMLDivElement>(null);
@@ -44,6 +45,13 @@ const Navbar = () => {
     } else openCart();
   }
 
+  const pathname = usePathname();
+
+  useEffect(() => {
+    // Close menus on route change
+    setMenuOpen(false);
+    setCartOpen(false);
+  }, [pathname]);
   useEffect(() => {
     if (menuOpen || cartOpen) {
       document.querySelector("body")!.style.overflow = "hidden";
