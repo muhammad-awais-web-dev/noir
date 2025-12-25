@@ -60,11 +60,12 @@ export default function Home() {
       <Hero />
       <div className=" w-full bg-white p-10 dark:bg-black h-fit relative ">
         {/*need to add link later*/}
-        <Image
+        <img
           width={2048}
           height={651}
           alt="Banner"
           src="/images/banner.png"
+          loading="lazy"
           className=" w-full h-auto object-cover "
         />
       </div>
