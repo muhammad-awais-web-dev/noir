@@ -8,6 +8,7 @@ import { BsCart2 } from "react-icons/bs";
 import gsap from "gsap/all";
 import NavMenu from "./NavMenu";
 import CartMenu from "./CartMenu";
+import NavProgress from "./NavProgress";
 
 const Navbar = () => {
   const menuRef = useRef<HTMLDivElement>(null);
@@ -91,6 +92,7 @@ const Navbar = () => {
   return (
     <>
       <nav className="w-full h-16 flex items-center justify-between fixed top-0 left-0 z-50">
+        {/* <NavProgress /> progress bar is here */}
         <Link href="/" className=" h-full ">
           <div className=" group bg-black text-black dark:text-white dark:bg-black/55 backdrop-blur-lg relative border-r-2 border-b-2 h-full overflow-hidden ">
             <div className="rounded-full w-0 h-0 group-hover:w-[200%] group-hover:h-[200%] absolute bg-white top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 transition-all duration-900 "></div>

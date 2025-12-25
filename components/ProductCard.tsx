@@ -69,6 +69,7 @@ const ProductCard = (props: { product: productType; index: number }) => {
           key={product.id || index}
           href={`/products/${product.handle}`}
           className="no-underline"
+          prefetch={false}
         >
           <div className="bg-black/10 dark:bg-white/10 backdrop-blur-md rounded-2xl p-5 h-80 flex items-center justify-center">
             {displayImage ? (
