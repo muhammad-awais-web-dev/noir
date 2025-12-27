@@ -1,4 +1,5 @@
-import { getProduct } from "@/app/api_functions/products/product";
+"use client";
+
 import { OrganizedProductPlaceholder } from "@/data/PlaceholderProduct";
 import ProductPageClient from "./ProductPageClient";
 

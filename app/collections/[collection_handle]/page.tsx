@@ -62,7 +62,7 @@ const page = async ({ params, searchParams }: PageProps) => {
               : "#"
           }
           className={` ${
-            page && parseInt(page) * 30 < data.products_count
+            page && parseInt(page) * 20 < data.products_count
               ? "text-black dark:text-white"
               : "text-gray-500 cursor-not-allowed"
           }  border-2 border-black dark:border-white px-5 py-2 `}
